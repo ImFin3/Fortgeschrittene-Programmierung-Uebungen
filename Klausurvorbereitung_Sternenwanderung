@@ -1,0 +1,343 @@
+{
+ "cells": [
+  {
+   "metadata": {},
+   "cell_type": "markdown",
+   "source": [
+    "### \"length\" für die Länge pro Zeile festlegen\n",
+    "\n",
+    "##### Alle folgenden erklärungen arbeiten mit length = 5 obwohl man zu Testzwecken natürlich auch die length verändern kann"
+   ],
+   "id": "5a02eb8036568cd0"
+  },
+  {
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2026-06-16T11:45:41.674254Z",
+     "start_time": "2026-06-16T11:45:41.672057Z"
+    }
+   },
+   "cell_type": "code",
+   "source": "length = 5",
+   "id": "71a5d978b3c73225",
+   "outputs": [],
+   "execution_count": 2
+  },
+  {
+   "metadata": {},
+   "cell_type": "markdown",
+   "source": [
+    "### Simple Sternenwanderung\n",
+    "\n",
+    "- 2 Wiederholungen von: Wanderung nach Rechts und zurück nach Links\n",
+    "- iteration durch range(length) => 0,1,2,3,4 mit length=5 => Wanderung nach Rechts\n",
+    "- line als Liste anlegen und unsere 5 * \"_\" reinschreiben (Liste ist wichtig um später unseren stern als Index ansprechen zu können)\n",
+    "- stern an liste[pos] setzen\n",
+    "- line ausgeben (das \"\" in \"\".join(line) steht für das Zeichen, was zwischen alle Elemente der Liste gepackt werden soll)\n",
+    "- iteration durch range(length - 1, -1, -1) => 4,3,2,1,0 mit length=5 => Wanderung nach Links\n",
+    "- danach selbes Prinzip wie bei Wanderung nach Rechts\n",
+    "\n",
+    "#### Wichtigste Mitnehmsel:\n",
+    "- range(start, stop, step)\n",
+    "- start => wo Starten wir zu zählen (inklusiv)\n",
+    "- stop => wo hören wir auf zu zählen (exklusiv)\n",
+    "- step => in welchen Schrittgrößen gehen wir\n",
+    "######\n",
+    "- \"\".join(line)\n",
+    "- line ist unsere Liste\n",
+    "- diese Methode macht nichts anderes als die Elemente unserer Liste (line) aneinanderzufügen mit \"\" als trennzeichen\n",
+    "\n",
+    "#### Beispiele:\n",
+    "- range(5) => eine Zahl alleine (5) bezieht sich auf stop, man könnte es also auch schreiben als range(0, 5, 1) => 0,1,2,3,4 da stop exklusiv ist\n",
+    "- range(4, -1, -1) => starten bei 4 (inklusiv) hört bei -1 auf (exklusiv) => also 0 inklusiv und geht -1 pro Schritt\n",
+    "######\n",
+    "- \"\".join([\"1\", \"2\", \"3\", \"4\", \"5\"]) => 12345\n",
+    "- \"+\".join([\"1\", \"2\", \"3\", \"4\", \"5\"]) => 1+2+3+4+5"
+   ],
+   "id": "b49552ac17ac5ba2"
+  },
+  {
+   "cell_type": "code",
+   "id": "initial_id",
+   "metadata": {
+    "collapsed": true,
+    "ExecuteTime": {
+     "end_time": "2026-06-16T11:45:42.589888Z",
+     "start_time": "2026-06-16T11:45:42.586443Z"
+    }
+   },
+   "source": [
+    "for _ in range(2):\n",
+    "\n",
+    "    for pos in range(length):\n",
+    "        line = [\"_\"] * length\n",
+    "        line[pos] = \"*\"\n",
+    "        print(\"\".join(line))\n",
+    "\n",
+    "    for pos in range(length - 1, -1, -1):\n",
+    "        line = [\"_\"] * length\n",
+    "        line[pos] = \"*\"\n",
+    "        print(\"\".join(line))"
+   ],
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "*____\n",
+      "_*___\n",
+      "__*__\n",
+      "___*_\n",
+      "____*\n",
+      "____*\n",
+      "___*_\n",
+      "__*__\n",
+      "_*___\n",
+      "*____\n",
+      "*____\n",
+      "_*___\n",
+      "__*__\n",
+      "___*_\n",
+      "____*\n",
+      "____*\n",
+      "___*_\n",
+      "__*__\n",
+      "_*___\n",
+      "*____\n"
+     ]
+    }
+   ],
+   "execution_count": 3
+  },
+  {
+   "metadata": {},
+   "cell_type": "markdown",
+   "source": [
+    "### Simple Sternenwanderung ohne Dopplung am Rand\n",
+    "\n",
+    "Das Selbe wie bei der ersten Sternenwanderung nur, dass wir in unserer schleife nach Links anstatt von length - 1 (index 4) bei length - 2 starten also index 3"
+   ],
+   "id": "f8de65118bd6091d"
+  },
+  {
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2026-06-16T11:46:05.878861Z",
+     "start_time": "2026-06-16T11:46:05.875953Z"
+    }
+   },
+   "cell_type": "code",
+   "source": [
+    "for _ in range(2):\n",
+    "\n",
+    "    for pos in range(length):\n",
+    "        line = [\"_\"] * length\n",
+    "        line[pos] = \"*\"\n",
+    "        print(\"\".join(line))\n",
+    "\n",
+    "    for pos in range(length - 2, -1, -1):\n",
+    "        line = [\"_\"] * length\n",
+    "        line[pos] = \"*\"\n",
+    "        print(\"\".join(line))"
+   ],
+   "id": "fee1c335141191d4",
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "*____\n",
+      "_*___\n",
+      "__*__\n",
+      "___*_\n",
+      "____*\n",
+      "___*_\n",
+      "__*__\n",
+      "_*___\n",
+      "*____\n",
+      "*____\n",
+      "_*___\n",
+      "__*__\n",
+      "___*_\n",
+      "____*\n",
+      "___*_\n",
+      "__*__\n",
+      "_*___\n",
+      "*____\n"
+     ]
+    }
+   ],
+   "execution_count": 4
+  },
+  {
+   "metadata": {},
+   "cell_type": "markdown",
+   "source": [
+    "### Doppelte Sternenwanderung\n",
+    "\n",
+    "- An sich wieder das selbe Prinzip wie bei der normalen Sternenwanderung nur setzen wir jetzt zeitgleich symmetrisch unsere 2 Zeichen\n",
+    "- Wir teilen die length ganzzahlig durch 2 (5//2 = 2) und überprüfen ob es unserer jetzigen position entspricht\n",
+    "- BEACHTE: unsere Position \"pos\" ist ein index (von 0-4) und hat bei 2 seine Mitte, weshalb man direkt, und ohne nochmal -1 rechnen zu müssen, unsere pos mit dem Mittelwert der gesamtlänge vergleichen kann obwohl length kein index war\n",
+    "- Wenn unsere jetzige pos gleich der Mitte entspricht setzen wir X, wenn das nicht der Fall ist, setzen wir normal unseren \"*\" an Position pos und setzen unser \"#\" am Ende unserer Liste (Ende der Liste = length - 1 als index) - unsere jetzige position"
+   ],
+   "id": "849fc55ec18b8747"
+  },
+  {
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2026-06-16T11:46:53.081491Z",
+     "start_time": "2026-06-16T11:46:53.077842Z"
+    }
+   },
+   "cell_type": "code",
+   "source": [
+    "for _ in range(2):\n",
+    "\n",
+    "    for pos in range(length):\n",
+    "        line = [\"_\"] * length\n",
+    "\n",
+    "        if length // 2 == pos:\n",
+    "            line[pos] = \"X\"\n",
+    "        else:\n",
+    "            line[pos] = \"*\"\n",
+    "            line[length - pos - 1] = \"#\"\n",
+    "\n",
+    "        print(\"\".join(line))\n",
+    "\n",
+    "    for pos in range(length - 1, -1, -1):\n",
+    "        line = [\"_\"] * length\n",
+    "\n",
+    "        if length // 2 == pos:\n",
+    "            line[pos] = \"X\"\n",
+    "        else:\n",
+    "            line[pos] = \"*\"\n",
+    "            line[length - pos - 1] = \"#\"\n",
+    "\n",
+    "        print(\"\".join(line))"
+   ],
+   "id": "9293e79167f8ed0f",
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "*___#\n",
+      "_*_#_\n",
+      "__X__\n",
+      "_#_*_\n",
+      "#___*\n",
+      "#___*\n",
+      "_#_*_\n",
+      "__X__\n",
+      "_*_#_\n",
+      "*___#\n",
+      "*___#\n",
+      "_*_#_\n",
+      "__X__\n",
+      "_#_*_\n",
+      "#___*\n",
+      "#___*\n",
+      "_#_*_\n",
+      "__X__\n",
+      "_*_#_\n",
+      "*___#\n"
+     ]
+    }
+   ],
+   "execution_count": 5
+  },
+  {
+   "metadata": {},
+   "cell_type": "markdown",
+   "source": [
+    "### Doppelte Sternenwanderung ohne Dopplung am Rand\n",
+    "\n",
+    "Das Selbe wie bei der Doppelten Sternenwanderung nur, dass wir in unserer schleife nach Links anstatt von length - 1 (index 4) bei length - 2 starten also index 3"
+   ],
+   "id": "a557760ea876ff71"
+  },
+  {
+   "metadata": {
+    "ExecuteTime": {
+     "end_time": "2026-06-16T11:47:24.635591Z",
+     "start_time": "2026-06-16T11:47:24.632283Z"
+    }
+   },
+   "cell_type": "code",
+   "source": [
+    "for _ in range(2):\n",
+    "\n",
+    "    for pos in range(length):\n",
+    "        line = [\"_\"] * length\n",
+    "\n",
+    "        if length // 2 == pos:\n",
+    "            line[pos] = \"X\"\n",
+    "        else:\n",
+    "            line[pos] = \"*\"\n",
+    "            line[length - pos - 1] = \"#\"\n",
+    "\n",
+    "        print(\"\".join(line))\n",
+    "\n",
+    "    for pos in range(length - 2, -1, -1):\n",
+    "        line = [\"_\"] * length\n",
+    "\n",
+    "        if length // 2 == pos:\n",
+    "            line[pos] = \"X\"\n",
+    "        else:\n",
+    "            line[pos] = \"*\"\n",
+    "            line[length - pos - 1] = \"#\"\n",
+    "\n",
+    "        print(\"\".join(line))"
+   ],
+   "id": "5a54a95995ed059f",
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "*___#\n",
+      "_*_#_\n",
+      "__X__\n",
+      "_#_*_\n",
+      "#___*\n",
+      "_#_*_\n",
+      "__X__\n",
+      "_*_#_\n",
+      "*___#\n",
+      "*___#\n",
+      "_*_#_\n",
+      "__X__\n",
+      "_#_*_\n",
+      "#___*\n",
+      "_#_*_\n",
+      "__X__\n",
+      "_*_#_\n",
+      "*___#\n"
+     ]
+    }
+   ],
+   "execution_count": 6
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
